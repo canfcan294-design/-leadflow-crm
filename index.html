@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>LeadFlow CRM</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--blue2:#eff6ff;--green:#16a34a;--orange:#ea580c;--red:#dc2626;--purple:#7c3aed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.layout{min-height:100vh}.side{position:fixed;left:0;top:0;bottom:0;width:240px;background:#0f172a;color:#cbd5e1;padding:20px 14px;z-index:10}.logo{font-size:22px;font-weight:800;color:white;padding:8px 10px 24px}.logo i{color:#60a5fa;font-style:normal}.nav button{display:block;width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 13px;border-radius:10px;margin:3px 0}.nav button.active,.nav button:hover{background:#1e293b;color:#fff}.main{margin-left:240px;padding:26px;max-width:1500px}.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.header h1{margin:0;font-size:28px}.header p{margin:5px 0 0;color:var(--muted);font-size:13px}.primary{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:12px 17px;font-weight:750}.primary:hover{background:#1d4ed8}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px}.stat small{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:25px;margin-top:6px}.dashboardGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}.panel h3{font-size:16px;margin:0 0 15px}.pipeline{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.pipe{padding:14px;border-radius:12px;background:#f8fafc;border:1px solid var(--line)}.pipe b{font-size:20px}.pipe span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick button{padding:13px;border:1px solid var(--line);background:#fff;border-radius:10px;text-align:left}.quick b{display:block}.quick span{color:var(--muted);font-size:11px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}.search{flex:1;min-width:220px}.fieldInput,.toolbar select{height:42px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;padding:0 11px}.tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{border-bottom:1px solid var(--line);padding:12px 9px;text-align:left;font-size:13px}.table th{font-size:10px;color:var(--muted);text-transform:uppercase}.company{font-weight:750}.sub{font-size:11px;color:var(--muted);margin-top:3px}.badge{display:inline-block;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:750;white-space:nowrap}.new{background:#dbeafe;color:#1d4ed8}.follow{background:#fef3c7;color:#92400e}.rnow{background:#fee2e2;color:#991b1b}.hot{background:#ffedd5;color:#c2410c}.visited{background:#ede9fe;color:#6d28d9}.won{background:#dcfce7;color:#166534}.lost{background:#f1f5f9;color:#475569}.actions{display:flex;gap:5px}.smallBtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 8px}.empty{text-align:center;color:var(--muted);padding:45px 15px}.recent{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.mobile{display:none}.modalBg{display:none;position:fixed;inset:0;background:#0008;z-index:100;padding:15px;overflow:auto}.modal{background:#fff;border-radius:16px;max-width:760px;margin:25px auto;padding:20px}.modalHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modalHead h2{margin:0}.close{border:0;background:#f1f5f9;border-radius:8px;padding:8px 10px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:750;color:#475569}.field input,.field select,.field textarea{border:1px solid #cbd5e1;border-radius:8px;padding:10px;background:#fff}.field textarea{min-height:85px;resize:vertical}.modalActions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.secondary{border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 14px}.danger{color:#b91c1c}.hidden{display:none!important}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){
+.side{display:none}.main{margin:0;padding:16px 14px 82px}.header{align-items:flex-start}.header h1{font-size:23px}.header p{font-size:12px;max-width:210px}.primary{padding:10px 12px}.stats{grid-template-columns:repeat(2,1fr);gap:8px}.stat{padding:13px}.stat strong{font-size:22px}.dashboardGrid{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.toolbar{display:grid;grid-template-columns:1fr 1fr}.search{grid-column:1/-1;min-width:0}.mobile{display:flex;position:fixed;left:0;right:0;bottom:0;height:65px;background:#fff;border-top:1px solid var(--line);z-index:50;justify-content:space-around;padding-bottom:env(safe-area-inset-bottom)}.mobile button{border:0;background:transparent;color:#64748b;font-size:10px}.mobile button.active{color:var(--blue);font-weight:800}.mobile .ico{display:block;font-size:19px;margin-bottom:2px}.form{grid-template-columns:1fr}.field.full{grid-column:auto}.modal{margin:8px auto;padding:16px}
+}
+</style>
+</head>
+<body>
+<aside class="side">
+  <div class="logo">Lead<i>Flow</i> CRM</div>
+  <nav class="nav" id="nav"></nav>
+</aside>
+
+<main class="main">
+  <header class="header">
+    <div><h1 id="title">Dashboard</h1><p>Dental clinic leads, visits & follow-ups</p></div>
+    <button class="primary" onclick="openForm()">+ Add Lead</button>
+  </header>
+  <div id="app"></div>
+</main>
+
+<nav class="mobile" id="mobileNav"></nav>
+
+<div class="modalBg" id="modalBg">
+<div class="modal">
+  <div class="modalHead"><h2 id="formTitle">Add Lead</h2><button class="close" onclick="closeForm()">✕</button></div>
+  <form id="leadForm">
+    <input id="id" type="hidden">
+    <div class="form">
+      <div class="field"><label>Company / Clinic *</label><input id="company" required placeholder="Dental clinic name"></div>
+      <div class="field"><label>Contact Person</label><input id="contact" placeholder="Manager / doctor"></div>
+      <div class="field full"><label>Address *</label><input id="address" required placeholder="Full address"></div>
+      <div class="field"><label>Phone</label><input id="phone" type="tel" placeholder="+90..."></div>
+      <div class="field"><label>Year Established</label><input id="year" type="number" min="1900" max="2100" placeholder="2026"></div>
+      <div class="field"><label>Status</label><select id="status"><option>New</option><option>Follow Up</option><option>R-Now</option><option>HOT 25/26</option><option>Visited</option><option>Won</option><option>Lost</option></select></div>
+      <div class="field"><label>Priority</label><select id="priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+      <div class="field"><label>Service / Offer</label><select id="service"><option>Advertising</option><option>Digital Marketing</option><option>Social Media Management</option><option>Website</option><option>Google Ads</option><option>Dental Laboratory</option><option>Photo / Video</option><option>Patient Acquisition</option><option>Other</option></select></div>
+      <div class="field"><label>Next Follow Up</label><input id="follow" type="date"></div>
+      <div class="field"><label>Visit Date</label><input id="visit" type="date"></div>
+      <div class="field full"><label>Notes</label><textarea id="notes" placeholder="Meeting notes, offer, objections, next step..."></textarea></div>
+    </div>
+    <div class="modalActions"><button type="button" class="secondary" onclick="closeForm()">Cancel</button><button class="primary">Save Lead</button></div>
+  </form>
+</div>
+</div>
+
+<script>
+const pages=[
+ ["dashboard","Dashboard","▦"],["all","All Leads","☰"],["follow","Follow Up","↻"],["rnow","R-Now","⚡"],["hot","HOT 25/26","🔥"],["visited","Visited","✓"],["won","Won","★"],["lost","Lost","×"]
+];
+let page="dashboard";
+let leads=JSON.parse(localStorage.getItem("leadflow_crm")||"[]");
+
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem("leadflow_crm",JSON.stringify(leads))}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function nav(){
+ $("nav").innerHTML=pages.map(p=>`<button class="${page===p[0]?"active":""}" onclick="go('${p[0]}')">${p[2]} &nbsp; ${p[1]}</button>`).join("");
+ $("mobileNav").innerHTML=pages.slice(0,5).map(p=>`<button class="${page===p[0]?"active":""}" onclick="go('${p[0]}')"><span class="ico">${p[2]}</span>${p[1]}</button>`).join("");
+}
+function go(p){page=p;$("title").textContent=pages.find(x=>x[0]===p)[1];nav();render()}
+function statusClass(s){return ({New:"new","Follow Up":"follow","R-Now":"rnow","HOT 25/26":"hot",Visited:"visited",Won:"won",Lost:"lost"})[s]||"new"}
+function counts(){return {
+all:leads.length,
+follow:leads.filter(x=>x.status==="Follow Up").length,
+rnow:leads.filter(x=>x.status==="R-Now").length,
+hot:leads.filter(x=>x.status==="HOT 25/26").length,
+visited:leads.filter(x=>x.status==="Visited").length,
+won:leads.filter(x=>x.status==="Won").length,
+lost:leads.filter(x=>x.status==="Lost").length
+}}
+function render(){
+ if(page==="dashboard") dashboard(); else list();
+}
+function dashboard(){
+ const c=counts();
+ $("app").innerHTML=`
+ <div class="stats">
+  <div class="stat"><small>Total Leads</small><strong>${c.all}</strong></div>
+  <div class="stat"><small>Follow Up</small><strong>${c.follow}</strong></div>
+  <div class="stat"><small>R-Now</small><strong>${c.rnow}</strong></div>
+  <div class="stat"><small>HOT 25/26</small><strong>${c.hot}</strong></div>
+  <div class="stat"><small>Visited</small><strong>${c.visited}</strong></div>
+  <div class="stat"><small>Won</small><strong>${c.won}</strong></div>
+ </div>
+ <div class="dashboardGrid">
+  <section class="panel"><h3>Pipeline Overview</h3>
+   <div class="pipeline">
+    ${pipe("New",leads.filter(x=>x.status==="New").length,"all")}
+    ${pipe("Follow Up",c.follow,"follow")}
+    ${pipe("R-Now",c.rnow,"rnow")}
+    ${pipe("HOT 25/26",c.hot,"hot")}
+    ${pipe("Visited",c.visited,"visited")}
+    ${pipe("Won",c.won,"won")}
+   </div>
+  </section>
+  <section class="panel"><h3>Quick Actions</h3>
+   <div class="quick">
+    <button onclick="go('rnow')"><b>⚡ R-Now</b><span>Priority visits</span></button>
+    <button onclick="go('follow')"><b>↻ Follow Up</b><span>People to contact</span></button>
+    <button onclick="go('hot')"><b>🔥 HOT 25/26</b><span>New clinics</span></button>
+    <button onclick="openForm()"><b>＋ Add Lead</b><span>Create a company</span></button>
+   </div>
+  </section>
+ </div>
+ <section class="panel" style="margin-top:16px"><h3>Recent Leads</h3>${recent()}</section>`;
+}
+function pipe(name,n,target){return `<button class="pipe" onclick="go('${target}')"><b>${n}</b><span>${name}</span></button>`}
+function recent(){
+ if(!leads.length)return `<div class="empty">No leads yet. Tap <b>+ Add Lead</b> to add your first clinic.</div>`;
+ return leads.slice().reverse().slice(0,6).map(x=>`<div class="recent"><div><div class="company">${esc(x.company)}</div><div class="sub">${esc(x.address)}</div></div><span class="badge ${statusClass(x.status)}">${esc(x.status)}</span></div>`).join("");
+}
+function pageFilter(){
+ const map={follow:"Follow Up",rnow:"R-Now",hot:"HOT 25/26",visited:"Visited",won:"Won",lost:"Lost"};
+ return map[page]?leads.filter(x=>x.status===map[page]):leads;
+}
+function list(){
+ const title=pages.find(x=>x[0]===page)[1];
+ $("app").innerHTML=`<section class="panel">
+ <div class="toolbar">
+  <input id="search" class="fieldInput search" placeholder="Search company, address, phone..." oninput="drawRows()">
+  <select id="sort" onchange="drawRows()"><option value="new">Newest</option><option value="company">Company A-Z</option><option value="priority">Priority</option><option value="year">Newest Year</option></select>
+  <button class="primary" onclick="openForm()">+ Add Lead</button>
+ </div>
+ <div class="tableWrap"><table class="table"><thead><tr><th>Company</th><th>Address</th><th>Contact</th><th>Status</th><th>Priority</th><th>Service</th><th>Follow Up</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div>
+ </section>`;
+ drawRows();
+}
+function drawRows(){
+ let a=pageFilter(),q=($("search")?.value||"").toLowerCase();
+ a=a.filter(x=>[x.company,x.address,x.phone,x.contact,x.service].join(" ").toLowerCase().includes(q));
+ const s=$("sort")?.value||"new";
+ if(s==="company")a.sort((x,y)=>x.company.localeCompare(y.company));
+ if(s==="year")a.sort((x,y)=>(Number(y.year)||0)-(Number(x.year)||0));
+ if(s==="priority"){const p={High:0,Medium:1,Low:2};a.sort((x,y)=>p[x.priority]-p[y.priority])}
+ $("rows").innerHTML=a.length?a.map(x=>`<tr>
+ <td><div class="company">${esc(x.company)}</div><div class="sub">${esc(x.year||"")}</div></td>
+ <td>${esc(x.address)}<br><button class="smallBtn" onclick="maps('${encodeURIComponent(x.address)}')">📍 Maps</button></td>
+ <td>${esc(x.contact||"-")}<div class="sub">${esc(x.phone||"")}</div></td>
+ <td><span class="badge ${statusClass(x.status)}">${esc(x.status)}</span></td>
+ <td>${esc(x.priority)}</td><td>${esc(x.service||"-")}</td><td>${esc(x.follow||"-")}</td>
+ <td><div class="actions"><button class="smallBtn" onclick="editLead('${x.id}')">✏️</button><button class="smallBtn danger" onclick="removeLead('${x.id}')">🗑️</button></div></td>
+ </tr>`).join(""):`<tr><td colspan="8"><div class="empty">No leads found.</div></td></tr>`;
+}
+function maps(a){window.open("https://www.google.com/maps/search/?api=1&query="+a,"_blank")}
+function openForm(id){
+ $("leadForm").reset();$("id").value="";$("formTitle").textContent=id?"Edit Lead":"Add Lead";
+ if(id){let x=leads.find(a=>a.id===id);if(!x)return;$("id").value=id;["company","contact","address","phone","year","status","priority","service","follow","visit","notes"].forEach(k=>$(k).value=x[k]||"")}
+ $("modalBg").style.display="block";
+}
+function closeForm(){$("modalBg").style.display="none"}
+$("leadForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const x={id:$("id").value||Date.now().toString(),company:$("company").value.trim(),contact:$("contact").value.trim(),address:$("address").value.trim(),phone:$("phone").value.trim(),year:$("year").value,status:$("status").value,priority:$("priority").value,service:$("service").value,follow:$("follow").value,visit:$("visit").value,notes:$("notes").value.trim()};
+ const old=$("id").value;
+ if(old)leads=leads.map(a=>a.id===old?x:a);else leads.push(x);
+ save();closeForm();render();
+});
+function editLead(id){openForm(id)}
+function removeLead(id){let x=leads.find(a=>a.id===id);if(confirm("Delete "+(x?.company||"this lead")+"?")){leads=leads.filter(a=>a.id!==id);save();render()}}
+$("modalBg").addEventListener("click",e=>{if(e.target.id==="modalBg")closeForm()});
+nav();render();
+</script>
+</body>
+</html>
